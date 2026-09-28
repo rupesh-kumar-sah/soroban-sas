@@ -40,8 +40,10 @@ jobs:
             ${{ runner.os }}-cargo-integration-
             ${{ runner.os }}-cargo-
 
+      - name: Install cargo-binstall
+        uses: taiki-e/install-action@cargo-binstall
       - name: Install stellar-cli
-        run: cargo install --locked stellar-cli --version ^21
+        run: cargo binstall -y stellar-cli@22.0.1
 
       - name: Start stellar-quickstart
         run: |
