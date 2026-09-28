@@ -4,13 +4,11 @@ node_modules
 /issues
 cargo_err.log
 .DS_Store
-.env
-.env.*
 !.env.example
 
-.env
 *.env.bak
 
 /fuzz/target/
 /fuzz/artifacts/
 *.swp
+config.bat

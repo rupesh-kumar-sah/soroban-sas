@@ -594,7 +594,7 @@ fn test_renew_attestation_success_extends_expiration() {
     let f = renew::setup(10000); // expires at 10000, current time is 5000
     let new_expiration = 20000;
 
-    let returned_uid = f.sas_client.renew_attestation(&f.uid, new_expiration);
+    let returned_uid = f.sas_client.renew_attestation(&f.uid, &new_expiration);
     assert_eq!(returned_uid, f.uid);
 
     // Attestation should still be valid and have new expiration
@@ -614,7 +614,7 @@ fn test_renew_attestation_success_makes_perpetual() {
     let f = renew::setup(10000); // expires at 10000
     let new_expiration = 0; // perpetual
 
-    let returned_uid = f.sas_client.renew_attestation(&f.uid, new_expiration);
+    let returned_uid = f.sas_client.renew_attestation(&f.uid, &new_expiration);
     assert_eq!(returned_uid, f.uid);
 
     assert!(f.sas_client.verify_attestation(&f.uid));
@@ -633,7 +633,7 @@ fn test_renew_attestation_rejects_shorten_expiration() {
     let f = renew::setup(10000);
     let new_expiration = 8000; // shorter than 10000
 
-    let res = f.sas_client.try_renew_attestation(&f.uid, new_expiration);
+    let res = f.sas_client.try_renew_attestation(&f.uid, &new_expiration);
     assert!(res.is_err());
 }
 
@@ -642,7 +642,7 @@ fn test_renew_attestation_rejects_make_expirable_from_perpetual() {
     let f = renew::setup(0); // perpetual
     let new_expiration = 10000; // try to make it expirable
 
-    let res = f.sas_client.try_renew_attestation(&f.uid, new_expiration);
+    let res = f.sas_client.try_renew_attestation(&f.uid, &new_expiration);
     assert!(res.is_err());
 }
 
@@ -679,7 +679,7 @@ fn test_renew_attestation_rejects_non_revocable() {
     sas_client.attest(&attestation);
     env.ledger().with_mut(|li| li.timestamp = 5000);
 
-    let res = sas_client.try_renew_attestation(&uid, 20000);
+    let res = sas_client.try_renew_attestation(&uid, &20000);
     assert!(res.is_err());
 }
 
@@ -688,7 +688,7 @@ fn test_renew_attestation_rejects_already_revoked() {
     let f = renew::setup(10000);
     f.sas_client.revoke(&f.uid);
 
-    let res = f.sas_client.try_renew_attestation(&f.uid, 20000);
+    let res = f.sas_client.try_renew_attestation(&f.uid, &20000);
     assert!(res.is_err());
 }
 
@@ -697,7 +697,7 @@ fn test_renew_attestation_rejects_unknown_uid() {
     let f = renew::setup(10000);
     let unknown_uid = UID(BytesN::from_array(&f.env, &[99u8; 32]));
 
-    let res = f.sas_client.try_renew_attestation(&unknown_uid, 20000);
+    let res = f.sas_client.try_renew_attestation(&unknown_uid, &20000);
     assert!(res.is_err());
 }
 
