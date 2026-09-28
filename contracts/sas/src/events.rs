@@ -1,11 +1,11 @@
 use soroban_sas_common::{
     events::{
-        ADMIN_TRANSFER_COMPLETED, ADMIN_TRANSFER_PROPOSED, ATTESTED, BATCH_ATTESTED, BATCH_REVOKED,
+        ADMIN_TRANSFER_COMPLETED, ADMIN_TRANSFER_PROPOSED, ATTESTATION_RENEWED, ATTESTED, BATCH_ATTESTED, BATCH_REVOKED,
         CONTRACT_PAUSED, CONTRACT_UNPAUSED, CONTRACT_UPGRADED, INDEXER_STRICT_UPDATED,
         INDEXER_UPDATED, REVOKED,
     },
     AdminTransferCompletedEvent, AdminTransferProposedEvent, Attestation, AttestationIssuedEvent,
-    AttestationRevokedEvent, BatchAttestedEvent, BatchRevokedEvent, ContractPausedEvent,
+    AttestationRenewedEvent, AttestationRevokedEvent, BatchAttestedEvent, BatchRevokedEvent, ContractPausedEvent,
     ContractUnpausedEvent, ContractUpgradedEvent, IndexerStrictUpdatedEvent, IndexerUpdatedEvent,
     UID,
 };
