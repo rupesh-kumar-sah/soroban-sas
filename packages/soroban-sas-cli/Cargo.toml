@@ -2,7 +2,6 @@
 # Publishing requires maintainers to declare the project license first.
 publish = false
 name = "soroban-sas-cli"
-# Publishing requires maintainers to declare the project license first.
 version = "0.1.0"
 edition = "2021"
 
@@ -22,6 +21,8 @@ stellar-strkey = "0.0.8"
 
 [dev-dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }
+# Mock network client for unit testing the SDK (#333).
+soroban-sas-sdk = { path = "../soroban-sas-sdk", features = ["testutils"] }
 # Real contracts hosted in-process by the CLI end-to-end tests (#332).
 sas = { path = "../../contracts/sas" }
 schema-registry = { path = "../../contracts/schema-registry", features = ["testutils"] }
